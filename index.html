@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bundesliga Ergebnisse</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="apple-touch-icon" href="icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+    <header>
+        <h1>Bundesliga Ergebnisse</h1>
+    </header>
+    <main>
+        <div class="league-toggle">
+            <button id="toggle-bl1" class="active">1. Bundesliga</button>
+            <button id="toggle-bl2">2. Bundesliga</button>
+        </div>
+
+        <section id="bl1">
+            <h2>1. Bundesliga</h2>
+            <div id="results-1bl" class="results-container">
+                </div>
+        </section>
+        
+        <section id="bl2" class="hidden">
+            <h2>2. Bundesliga</h2>
+            <div id="results-2bl" class="results-container">
+                </div>
+        </section>
+    </main>
+    <footer>
+        <p>Daten von <a href="https://www.openligadb.de/">OpenLigaDB</a></p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

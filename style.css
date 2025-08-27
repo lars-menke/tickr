@@ -1,0 +1,119 @@
+/* Grundlegende Stil-Einstellungen für die ganze Seite */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+/* Stil für den Kopfbereich (Header) */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #1a1a1a;
+}
+
+/* Stil für die Hauptinhaltsbereiche (Main) und die Abschnitte */
+main {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+h2 {
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+/* Stil für die Container, in denen die Ergebnisse angezeigt werden */
+.results-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Stil für jedes einzelne Spiel-Ergebnis */
+.match {
+    display: flex;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.match-info {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+.team-logo {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    object-fit: contain; /* Stellt sicher, dass das Bild passend skaliert wird */
+}
+
+.team-name {
+    font-weight: bold;
+}
+
+.score {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #4CAF50;
+    margin-left: 20px;
+}
+
+/* Stil für den Fußbereich */
+footer {
+    text-align: center;
+    font-size: 0.8em;
+    color: #777;
+    margin-top: 20px;
+}
+
+/* Stil für den Liga-Schalter */
+.league-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.league-toggle button {
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.league-toggle button.active {
+    background-color: #007aff;
+    color: #fff;
+}
+
+.league-toggle button:hover {
+    background-color: #d0d0d0;
+}
+
+/* Klasse, um Elemente auszublenden */
+.hidden {
+    display: none;
+}
