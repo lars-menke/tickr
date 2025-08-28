@@ -101,40 +101,105 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Beispiel-Daten. Diese würden später von einer API geladen.
             const matches = [
                 {
                     home_team: 'FC Bayern München',
-                    away_team: 'Borussia Dortmund',
+                    away_team: 'VfL Wolfsburg',
                     home_logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg/1200px-FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg.png',
-                    away_logo: 'https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg',
-                    score: '2 - 1',
-                    status: 'finished',
+                    away_logo: 'https://upload.wikimedia.org/wikipedia/commons/e/ec/VfL_Wolfsburg_Logo.svg',
+                    score: ' - ',
+                    status: 'upcoming',
                     date: '28.08.2025',
-                    time: '18:30 Uhr',
+                    time: '15:30 Uhr',
                     venue: 'Allianz Arena'
                 },
                 {
-                    home_team: 'RB Leipzig',
+                    home_team: 'Eintracht Frankfurt',
                     away_team: 'VfB Stuttgart',
-                    home_logo: 'https://upload.wikimedia.org/wikipedia/de/a/aa/Logo_RB_Leipzig.svg',
+                    home_logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Eintracht_Frankfurt_Logo.svg/1200px-Eintracht_Frankfurt_Logo.svg.png',
                     away_logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/VfB_Stuttgart_1893_Logo.svg/1200px-VfB_Stuttgart_1893_Logo.svg.png',
-                    score: '1 - 1',
-                    status: 'live',
+                    score: ' - ',
+                    status: 'upcoming',
                     date: '28.08.2025',
-                    time: '20:30 Uhr',
+                    time: '15:30 Uhr',
+                    venue: 'Deutsche Bank Park'
+                },
+                {
+                    home_team: '1. FC Union Berlin',
+                    away_team: 'SC Freiburg',
+                    home_logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/1._FC_Union_Berlin_Logo.svg/1200px-1._FC_Union_Berlin_Logo.svg.png',
+                    away_logo: 'https://upload.wikimedia.org/wikipedia/de/e/e0/SC_Freiburg_Logo.svg',
+                    score: ' - ',
+                    status: 'upcoming',
+                    date: '28.08.2025',
+                    time: '15:30 Uhr',
+                    venue: 'Stadion An der Alten Försterei'
+                },
+                {
+                    home_team: 'Borussia Dortmund',
+                    away_team: 'Hertha BSC',
+                    home_logo: 'https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg',
+                    away_logo: 'https://upload.wikimedia.org/wikipedia/commons/8/81/Hertha_BSC_Logo_2012.svg',
+                    score: ' - ',
+                    status: 'upcoming',
+                    date: '28.08.2025',
+                    time: '15:30 Uhr',
+                    venue: 'Signal Iduna Park'
+                },
+                {
+                    home_team: 'FC Augsburg',
+                    away_team: 'Bayer 04 Leverkusen',
+                    home_logo: 'https://upload.wikimedia.org/wikipedia/de/b/b2/Logo_FC_Augsburg.svg',
+                    away_logo: 'https://upload.wikimedia.org/wikipedia/de/4/4b/Bayer_04_Leverkusen_Logo.svg',
+                    score: ' - ',
+                    status: 'upcoming',
+                    date: '28.08.2025',
+                    time: '15:30 Uhr',
+                    venue: 'WWK Arena'
+                },
+                {
+                    home_team: 'TSG 1899 Hoffenheim',
+                    away_team: '1. FC Köln',
+                    home_logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a8/Logo_TSG_1899_Hoffenheim.svg',
+                    away_logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/1._FC_K%C3%B6ln_logo.svg/1200px-1._FC_K%C3%B6ln_logo.svg.png',
+                    score: ' - ',
+                    status: 'upcoming',
+                    date: '28.08.2025',
+                    time: '15:30 Uhr',
+                    venue: 'PreZero Arena'
+                },
+                {
+                    home_team: 'RB Leipzig',
+                    away_team: '1. FSV Mainz 05',
+                    home_logo: 'https://upload.wikimedia.org/wikipedia/de/a/aa/Logo_RB_Leipzig.svg',
+                    away_logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/1._FSV_Mainz_05_logo.svg/1200px-1._FSV_Mainz_05_logo.svg.png',
+                    score: ' - ',
+                    status: 'upcoming',
+                    date: '28.08.2025',
+                    time: '18:30 Uhr',
                     venue: 'Red Bull Arena'
                 },
                 {
-                    home_team: 'Eintracht Frankfurt',
-                    away_team: '1. FC Köln',
-                    home_logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Eintracht_Frankfurt_Logo.svg/1200px-Eintracht_Frankfurt_Logo.svg.png',
-                    away_logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/1._FC_K%C3%B6ln_logo.svg/1200px-1._FC_K%C3%B6ln_logo.svg.png',
-                    score: '0 - 0',
+                    home_team: 'SV Werder Bremen',
+                    away_team: 'FC Schalke 04',
+                    home_logo: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/SV-Werder-Bremen-Logo.svg',
+                    away_logo: 'https://upload.wikimedia.org/wikipedia/commons/b/b9/FC_Schalke_04_Logo.svg',
+                    score: ' - ',
                     status: 'upcoming',
                     date: '29.08.2025',
                     time: '15:30 Uhr',
-                    venue: 'Deutsche Bank Park'
+                    venue: 'Wohninvest Weserstadion'
+                },
+                {
+                    home_team: 'VfL Bochum',
+                    away_team: 'Borussia Mönchengladbach',
+                    home_logo: 'https://upload.wikimedia.org/wikipedia/commons/f/f6/VfL_Bochum_1848_Logo.svg',
+                    away_logo: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Borussia_M%C3%B6nchengladbach_logo.svg',
+                    score: ' - ',
+                    status: 'upcoming',
+                    date: '29.08.2025',
+                    time: '17:30 Uhr',
+                    venue: 'Vonovia Ruhrstadion'
                 }
             ];
 
@@ -144,16 +209,13 @@
                 const matchDiv = document.createElement('div');
                 matchDiv.classList.add('match');
 
-                // Metazeile erstellen
                 const metaDiv = document.createElement('div');
                 metaDiv.classList.add('match-meta');
                 metaDiv.textContent = `${match.date}, ${match.time} | Stadion: ${match.venue}`;
 
-                // Hauptpaarungszeile erstellen
                 const detailsDiv = document.createElement('div');
                 detailsDiv.classList.add('match-details');
 
-                // Heimteam-Informationen
                 const homeTeamDiv = document.createElement('div');
                 homeTeamDiv.classList.add('team');
                 const homeLogo = document.createElement('img');
@@ -165,7 +227,6 @@
                 homeTeamDiv.appendChild(homeLogo);
                 homeTeamDiv.appendChild(homeName);
                 
-                // Auswärtsteam-Informationen
                 const awayTeamDiv = document.createElement('div');
                 awayTeamDiv.classList.add('team');
                 const awayName = document.createElement('span');
@@ -177,7 +238,6 @@
                 awayTeamDiv.appendChild(awayName);
                 awayTeamDiv.appendChild(awayLogo);
 
-                // Spielstand und Status
                 const scoreContainer = document.createElement('div');
                 scoreContainer.classList.add('score-container');
                 const scoreSpan = document.createElement('span');
@@ -185,7 +245,6 @@
                 const statusSpan = document.createElement('span');
                 statusSpan.classList.add('score-status');
 
-                // Status-Logik
                 if (match.status === 'live') {
                     statusSpan.classList.add('status-live');
                     statusSpan.textContent = 'LIVE';
@@ -200,12 +259,10 @@
                 scoreContainer.appendChild(scoreSpan);
                 scoreContainer.appendChild(statusSpan);
 
-                // Elemente zur Hauptpaarung hinzufügen
                 detailsDiv.appendChild(homeTeamDiv);
                 detailsDiv.appendChild(scoreContainer);
                 detailsDiv.appendChild(awayTeamDiv);
 
-                // Metazeile und Paarung zum Hauptelement hinzufügen
                 matchDiv.appendChild(metaDiv);
                 matchDiv.appendChild(detailsDiv);
 
@@ -218,6 +275,5 @@
             });
         });
     </script>
-
 </body>
 </html>
