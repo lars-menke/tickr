@@ -24,7 +24,14 @@
 
         h1 {
             text-align: center;
-            color: #004494; /* Dunkelblau für Überschrift */
+            color: #004494;
+        }
+
+        #loading {
+            text-align: center;
+            font-size: 1.2em;
+            color: #666;
+            padding: 20px;
         }
 
         .match {
@@ -96,114 +103,17 @@
 
     <div class="container">
         <h1>Fußball-Ergebnisse</h1>
+        <div id="loading">Lade Spieldaten...</div>
         <div id="results-container"></div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const matches = [
-                {
-                    home_team: 'FC Bayern München',
-                    away_team: 'VfL Wolfsburg',
-                    home_logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg/1200px-FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg.png',
-                    away_logo: 'https://upload.wikimedia.org/wikipedia/commons/e/ec/VfL_Wolfsburg_Logo.svg',
-                    score: ' - ',
-                    status: 'upcoming',
-                    date: '28.08.2025',
-                    time: '15:30 Uhr',
-                    venue: 'Allianz Arena'
-                },
-                {
-                    home_team: 'Eintracht Frankfurt',
-                    away_team: 'VfB Stuttgart',
-                    home_logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Eintracht_Frankfurt_Logo.svg/1200px-Eintracht_Frankfurt_Logo.svg.png',
-                    away_logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/VfB_Stuttgart_1893_Logo.svg/1200px-VfB_Stuttgart_1893_Logo.svg.png',
-                    score: ' - ',
-                    status: 'upcoming',
-                    date: '28.08.2025',
-                    time: '15:30 Uhr',
-                    venue: 'Deutsche Bank Park'
-                },
-                {
-                    home_team: '1. FC Union Berlin',
-                    away_team: 'SC Freiburg',
-                    home_logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/1._FC_Union_Berlin_Logo.svg/1200px-1._FC_Union_Berlin_Logo.svg.png',
-                    away_logo: 'https://upload.wikimedia.org/wikipedia/de/e/e0/SC_Freiburg_Logo.svg',
-                    score: ' - ',
-                    status: 'upcoming',
-                    date: '28.08.2025',
-                    time: '15:30 Uhr',
-                    venue: 'Stadion An der Alten Försterei'
-                },
-                {
-                    home_team: 'Borussia Dortmund',
-                    away_team: 'Hertha BSC',
-                    home_logo: 'https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg',
-                    away_logo: 'https://upload.wikimedia.org/wikipedia/commons/8/81/Hertha_BSC_Logo_2012.svg',
-                    score: ' - ',
-                    status: 'upcoming',
-                    date: '28.08.2025',
-                    time: '15:30 Uhr',
-                    venue: 'Signal Iduna Park'
-                },
-                {
-                    home_team: 'FC Augsburg',
-                    away_team: 'Bayer 04 Leverkusen',
-                    home_logo: 'https://upload.wikimedia.org/wikipedia/de/b/b2/Logo_FC_Augsburg.svg',
-                    away_logo: 'https://upload.wikimedia.org/wikipedia/de/4/4b/Bayer_04_Leverkusen_Logo.svg',
-                    score: ' - ',
-                    status: 'upcoming',
-                    date: '28.08.2025',
-                    time: '15:30 Uhr',
-                    venue: 'WWK Arena'
-                },
-                {
-                    home_team: 'TSG 1899 Hoffenheim',
-                    away_team: '1. FC Köln',
-                    home_logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a8/Logo_TSG_1899_Hoffenheim.svg',
-                    away_logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/1._FC_K%C3%B6ln_logo.svg/1200px-1._FC_K%C3%B6ln_logo.svg.png',
-                    score: ' - ',
-                    status: 'upcoming',
-                    date: '28.08.2025',
-                    time: '15:30 Uhr',
-                    venue: 'PreZero Arena'
-                },
-                {
-                    home_team: 'RB Leipzig',
-                    away_team: '1. FSV Mainz 05',
-                    home_logo: 'https://upload.wikimedia.org/wikipedia/de/a/aa/Logo_RB_Leipzig.svg',
-                    away_logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/1._FSV_Mainz_05_logo.svg/1200px-1._FSV_Mainz_05_logo.svg.png',
-                    score: ' - ',
-                    status: 'upcoming',
-                    date: '28.08.2025',
-                    time: '18:30 Uhr',
-                    venue: 'Red Bull Arena'
-                },
-                {
-                    home_team: 'SV Werder Bremen',
-                    away_team: 'FC Schalke 04',
-                    home_logo: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/SV-Werder-Bremen-Logo.svg',
-                    away_logo: 'https://upload.wikimedia.org/wikipedia/commons/b/b9/FC_Schalke_04_Logo.svg',
-                    score: ' - ',
-                    status: 'upcoming',
-                    date: '29.08.2025',
-                    time: '15:30 Uhr',
-                    venue: 'Wohninvest Weserstadion'
-                },
-                {
-                    home_team: 'VfL Bochum',
-                    away_team: 'Borussia Mönchengladbach',
-                    home_logo: 'https://upload.wikimedia.org/wikipedia/commons/f/f6/VfL_Bochum_1848_Logo.svg',
-                    away_logo: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Borussia_M%C3%B6nchengladbach_logo.svg',
-                    score: ' - ',
-                    status: 'upcoming',
-                    date: '29.08.2025',
-                    time: '17:30 Uhr',
-                    venue: 'Vonovia Ruhrstadion'
-                }
-            ];
-
             const resultsContainer = document.getElementById('results-container');
+            const loadingIndicator = document.getElementById('loading');
+            
+            // API-URL für die 1. Bundesliga, Saison 2025
+            const API_URL = 'https://www.openligadb.de/api/getmatchdata/bl1/2025';
 
             function createMatchElement(match) {
                 const matchDiv = document.createElement('div');
@@ -211,50 +121,68 @@
 
                 const metaDiv = document.createElement('div');
                 metaDiv.classList.add('match-meta');
-                metaDiv.textContent = `${match.date}, ${match.time} | Stadion: ${match.venue}`;
+                
+                const matchDate = new Date(match.MatchDateTime);
+                const dateString = matchDate.toLocaleDateString('de-DE');
+                const timeString = matchDate.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+                metaDiv.textContent = `${dateString}, ${timeString} Uhr | Stadion: ${match.Location.LocationName}`;
 
                 const detailsDiv = document.createElement('div');
                 detailsDiv.classList.add('match-details');
 
+                // Heimteam-Informationen
                 const homeTeamDiv = document.createElement('div');
                 homeTeamDiv.classList.add('team');
                 const homeLogo = document.createElement('img');
                 homeLogo.classList.add('team-logo');
-                homeLogo.src = match.home_logo;
+                homeLogo.src = match.Team1.TeamIconUrl;
                 const homeName = document.createElement('span');
                 homeName.classList.add('team-name');
-                homeName.textContent = match.home_team;
+                homeName.textContent = match.Team1.TeamName;
                 homeTeamDiv.appendChild(homeLogo);
                 homeTeamDiv.appendChild(homeName);
                 
+                // Auswärtsteam-Informationen
                 const awayTeamDiv = document.createElement('div');
                 awayTeamDiv.classList.add('team');
                 const awayName = document.createElement('span');
                 awayName.classList.add('team-name');
-                awayName.textContent = match.away_team;
+                awayName.textContent = match.Team2.TeamName;
                 const awayLogo = document.createElement('img');
                 awayLogo.classList.add('team-logo');
-                awayLogo.src = match.away_logo;
+                awayLogo.src = match.Team2.TeamIconUrl;
                 awayTeamDiv.appendChild(awayName);
                 awayTeamDiv.appendChild(awayLogo);
 
+                // Spielstand und Status
                 const scoreContainer = document.createElement('div');
                 scoreContainer.classList.add('score-container');
                 const scoreSpan = document.createElement('span');
-                scoreSpan.textContent = match.score;
                 const statusSpan = document.createElement('span');
                 statusSpan.classList.add('score-status');
 
-                if (match.status === 'live') {
-                    statusSpan.classList.add('status-live');
-                    statusSpan.textContent = 'LIVE';
-                } else if (match.status === 'finished') {
+                let statusText = 'ANSTEHEND';
+                let scoreText = ' - ';
+
+                if (match.IsFinished) {
+                    statusText = 'BEENDET';
+                    const homeScore = match.MatchResults[0].PointsTeam1;
+                    const awayScore = match.MatchResults[0].PointsTeam2;
+                    scoreText = `${homeScore} - ${awayScore}`;
                     statusSpan.classList.add('status-finished');
-                    statusSpan.textContent = 'BEENDET';
                 } else {
-                    statusSpan.classList.add('status-upcoming');
-                    statusSpan.textContent = 'ANSTEHEND';
+                    const now = new Date();
+                    if (now > matchDate) {
+                        statusText = 'LIVE';
+                        statusSpan.classList.add('status-live');
+                    } else {
+                        statusSpan.classList.add('status-upcoming');
+                    }
+                    scoreText = `${match.Team1.Points} - ${match.Team2.Points}`;
                 }
+                
+                scoreSpan.textContent = scoreText;
+                statusSpan.textContent = statusText;
 
                 scoreContainer.appendChild(scoreSpan);
                 scoreContainer.appendChild(statusSpan);
@@ -269,11 +197,40 @@
                 return matchDiv;
             }
 
-            matches.forEach(match => {
-                const matchElement = createMatchElement(match);
-                resultsContainer.appendChild(matchElement);
-            });
+            // Funktion zum Abrufen der Spieldaten
+            function fetchMatches() {
+                fetch(API_URL)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Netzwerkantwort war nicht OK');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        loadingIndicator.style.display = 'none'; // Ladeanzeige ausblenden
+                        
+                        // Sortiere die Spiele nach Spieltag und Datum
+                        const sortedMatches = data.sort((a, b) => {
+                            if (a.Group.GroupName !== b.Group.GroupName) {
+                                return a.Group.GroupOrderID - b.Group.GroupOrderID;
+                            }
+                            return new Date(a.MatchDateTime) - new Date(b.MatchDateTime);
+                        });
+
+                        sortedMatches.forEach(match => {
+                            const matchElement = createMatchElement(match);
+                            resultsContainer.appendChild(matchElement);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Fehler beim Abrufen der Daten:', error);
+                        loadingIndicator.textContent = 'Fehler beim Laden der Spieldaten.';
+                    });
+            }
+
+            fetchMatches();
         });
     </script>
+
 </body>
 </html>
