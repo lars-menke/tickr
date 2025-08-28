@@ -112,10 +112,7 @@
             const resultsContainer = document.getElementById('results-container');
             const loadingIndicator = document.getElementById('loading');
             
-            // Die Original-API-URL
             const API_URL = 'https://www.openligadb.de/api/getmatchdata/bl1/2025';
-            
-            // Der CORS-Proxy, der die Anfrage weiterleitet
             const PROXY_URL = 'https://corsproxy.io/?' + encodeURIComponent(API_URL);
 
             function createMatchElement(match) {
@@ -128,7 +125,8 @@
                 const matchDate = new Date(match.MatchDateTime);
                 const dateString = matchDate.toLocaleDateString('de-DE');
                 const timeString = matchDate.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
-                metaDiv.textContent = `${dateString}, ${timeString} Uhr | Stadion: ${match.Location.LocationName}`;
+                const venueName = match.Location && match.Location.LocationName ? match.Location.LocationName : 'Ort unbekannt';
+                metaDiv.textContent = `${dateString}, ${timeString} Uhr | Stadion: ${venueName}`;
 
                 const detailsDiv = document.createElement('div');
                 detailsDiv.classList.add('match-details');
@@ -166,9 +164,10 @@
 
                 if (match.IsFinished) {
                     statusText = 'BEENDET';
-                    const homeScore = match.MatchResults.find(result => result.ResultName === 'Endergebnis').PointsTeam1;
-                    const awayScore = match.MatchResults.find(result => result.ResultName === 'Endergebnis').PointsTeam2;
-                    scoreText = `${homeScore} - ${awayScore}`;
+                    const finalResult = match.MatchResults.find(result => result.ResultName === 'Endergebnis');
+                    if (finalResult) {
+                        scoreText = `${finalResult.PointsTeam1} - ${finalResult.PointsTeam2}`;
+                    }
                     statusSpan.classList.add('status-finished');
                 } else {
                     const now = new Date();
@@ -178,7 +177,7 @@
                     } else {
                         statusSpan.classList.add('status-upcoming');
                     }
-                    scoreText = ' - '; // Setze Score auf ' - ', da API Live-Scores nicht immer über den Haupt-Endpunkt liefert
+                    scoreText = ' - ';
                 }
                 
                 scoreSpan.textContent = scoreText;
@@ -209,9 +208,13 @@
                         loadingIndicator.style.display = 'none';
                         
                         const sortedMatches = data.sort((a, b) => {
-                            if (a.Group.GroupName !== b.Group.GroupName) {
-                                return a.Group.GroupOrderID - b.Group.GroupOrderID;
+                            // Sortiere nach Spieltag-Nummer, falls vorhanden
+                            const aGroup = a.Group ? a.Group.GroupOrderID : Infinity;
+                            const bGroup = b.Group ? b.Group.GroupOrderID : Infinity;
+                            if (aGroup !== bGroup) {
+                                return aGroup - bGroup;
                             }
+                            // Sortiere ansonsten nach Spieldatum
                             return new Date(a.MatchDateTime) - new Date(b.MatchDateTime);
                         });
 
