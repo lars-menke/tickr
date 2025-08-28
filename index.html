@@ -3,37 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bundesliga Ergebnisse</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="apple-touch-icon" href="icon.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Fußball-Ergebnisse</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #004494; /* Dunkelblau für Überschrift */
+        }
+
+        .match {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #fff;
+        }
+
+        .match-meta {
+            text-align: center;
+            font-size: 0.9em;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .match-details {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .team {
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+
+        .team-name {
+            margin: 0 10px;
+        }
+
+        .team-logo {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+
+        .score-container {
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .score-status {
+            display: block;
+            font-size: 0.8em;
+            font-weight: normal;
+            margin-top: 5px;
+        }
+
+        .status-live {
+            color: red;
+            font-weight: bold;
+        }
+
+        .status-finished {
+            color: #555;
+        }
+
+        .status-upcoming {
+            color: #888;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Bundesliga Ergebnisse</h1>
-    </header>
-    <main>
-        <div class="league-toggle">
-            <button id="toggle-bl1" class="active">1. Bundesliga</button>
-            <button id="toggle-bl2">2. Bundesliga</button>
-        </div>
 
-        <section id="bl1">
-            <h2>1. Bundesliga</h2>
-            <div id="results-1bl" class="results-container">
-                </div>
-        </section>
-        
-        <section id="bl2" class="hidden">
-            <h2>2. Bundesliga</h2>
-            <div id="results-2bl" class="results-container">
-                </div>
-        </section>
-    </main>
-    <footer>
-        <p>Daten von <a href="https://www.openligadb.de/">OpenLigaDB</a></p>
-    </footer>
-    <script src="script.js"></script>
+    <div class="container">
+        <h1>Fußball-Ergebnisse</h1>
+        <div id="results-container"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Beispiel-Daten. Diese würden später von einer API geladen.
+            const matches = [
+                {
+                    home_team: 'FC Bayern München',
+                    away_team: 'Borussia Dortmund',
+                    home_logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg/1200px-FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg.png',
+                    away_logo: 'https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg',
+                    score: '2 - 1',
+                    status: 'finished',
+                    date: '28.08.2025',
+                    time: '18:30 Uhr',
+                    venue: 'Allianz Arena'
+                },
+                {
+                    home_team: 'RB Leipzig',
+                    away_team: 'VfB Stuttgart',
+                    home_logo: 'https://upload.wikimedia.org/wikipedia/de/a/aa/Logo_RB_Leipzig.svg',
+                    away_logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/VfB_Stuttgart_1893_Logo.svg/1200px-VfB_Stuttgart_1893_Logo.svg.png',
+                    score: '1 - 1',
+                    status: 'live',
+                    date: '28.08.2025',
+                    time: '20:30 Uhr',
+                    venue: 'Red Bull Arena'
+                },
+                {
+                    home_team: 'Eintracht Frankfurt',
+                    away_team: '1. FC Köln',
+                    home_logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Eintracht_Frankfurt_Logo.svg/1200px-Eintracht_Frankfurt_Logo.svg.png',
+                    away_logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/1._FC_K%C3%B6ln_logo.svg/1200px-1._FC_K%C3%B6ln_logo.svg.png',
+                    score: '0 - 0',
+                    status: 'upcoming',
+                    date: '29.08.2025',
+                    time: '15:30 Uhr',
+                    venue: 'Deutsche Bank Park'
+                }
+            ];
+
+            const resultsContainer = document.getElementById('results-container');
+
+            function createMatchElement(match) {
+                const matchDiv = document.createElement('div');
+                matchDiv.classList.add('match');
+
+                // Metazeile erstellen
+                const metaDiv = document.createElement('div');
+                metaDiv.classList.add('match-meta');
+                metaDiv.textContent = `${match.date}, ${match.time} | Stadion: ${match.venue}`;
+
+                // Hauptpaarungszeile erstellen
+                const detailsDiv = document.createElement('div');
+                detailsDiv.classList.add('match-details');
+
+                // Heimteam-Informationen
+                const homeTeamDiv = document.createElement('div');
+                homeTeamDiv.classList.add('team');
+                const homeLogo = document.createElement('img');
+                homeLogo.classList.add('team-logo');
+                homeLogo.src = match.home_logo;
+                const homeName = document.createElement('span');
+                homeName.classList.add('team-name');
+                homeName.textContent = match.home_team;
+                homeTeamDiv.appendChild(homeLogo);
+                homeTeamDiv.appendChild(homeName);
+                
+                // Auswärtsteam-Informationen
+                const awayTeamDiv = document.createElement('div');
+                awayTeamDiv.classList.add('team');
+                const awayName = document.createElement('span');
+                awayName.classList.add('team-name');
+                awayName.textContent = match.away_team;
+                const awayLogo = document.createElement('img');
+                awayLogo.classList.add('team-logo');
+                awayLogo.src = match.away_logo;
+                awayTeamDiv.appendChild(awayName);
+                awayTeamDiv.appendChild(awayLogo);
+
+                // Spielstand und Status
+                const scoreContainer = document.createElement('div');
+                scoreContainer.classList.add('score-container');
+                const scoreSpan = document.createElement('span');
+                scoreSpan.textContent = match.score;
+                const statusSpan = document.createElement('span');
+                statusSpan.classList.add('score-status');
+
+                // Status-Logik
+                if (match.status === 'live') {
+                    statusSpan.classList.add('status-live');
+                    statusSpan.textContent = 'LIVE';
+                } else if (match.status === 'finished') {
+                    statusSpan.classList.add('status-finished');
+                    statusSpan.textContent = 'BEENDET';
+                } else {
+                    statusSpan.classList.add('status-upcoming');
+                    statusSpan.textContent = 'ANSTEHEND';
+                }
+
+                scoreContainer.appendChild(scoreSpan);
+                scoreContainer.appendChild(statusSpan);
+
+                // Elemente zur Hauptpaarung hinzufügen
+                detailsDiv.appendChild(homeTeamDiv);
+                detailsDiv.appendChild(scoreContainer);
+                detailsDiv.appendChild(awayTeamDiv);
+
+                // Metazeile und Paarung zum Hauptelement hinzufügen
+                matchDiv.appendChild(metaDiv);
+                matchDiv.appendChild(detailsDiv);
+
+                return matchDiv;
+            }
+
+            matches.forEach(match => {
+                const matchElement = createMatchElement(match);
+                resultsContainer.appendChild(matchElement);
+            });
+        });
+    </script>
+
 </body>
 </html>
