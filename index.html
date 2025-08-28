@@ -131,25 +131,27 @@
                 const detailsDiv = document.createElement('div');
                 detailsDiv.classList.add('match-details');
 
+                // Heimteam-Informationen mit zusätzlicher Prüfung
                 const homeTeamDiv = document.createElement('div');
                 homeTeamDiv.classList.add('team');
                 const homeLogo = document.createElement('img');
                 homeLogo.classList.add('team-logo');
-                homeLogo.src = match.Team1.TeamIconUrl;
+                homeLogo.src = match.Team1 && match.Team1.TeamIconUrl ? match.Team1.TeamIconUrl : '';
                 const homeName = document.createElement('span');
                 homeName.classList.add('team-name');
-                homeName.textContent = match.Team1.TeamName;
+                homeName.textContent = match.Team1 && match.Team1.TeamName ? match.Team1.TeamName : 'Heimteam';
                 homeTeamDiv.appendChild(homeLogo);
                 homeTeamDiv.appendChild(homeName);
                 
+                // Auswärtsteam-Informationen mit zusätzlicher Prüfung
                 const awayTeamDiv = document.createElement('div');
                 awayTeamDiv.classList.add('team');
                 const awayName = document.createElement('span');
                 awayName.classList.add('team-name');
-                awayName.textContent = match.Team2.TeamName;
+                awayName.textContent = match.Team2 && match.Team2.TeamName ? match.Team2.TeamName : 'Auswärtsteam';
                 const awayLogo = document.createElement('img');
                 awayLogo.classList.add('team-logo');
-                awayLogo.src = match.Team2.TeamIconUrl;
+                awayLogo.src = match.Team2 && match.Team2.TeamIconUrl ? match.Team2.TeamIconUrl : '';
                 awayTeamDiv.appendChild(awayName);
                 awayTeamDiv.appendChild(awayLogo);
 
@@ -208,13 +210,11 @@
                         loadingIndicator.style.display = 'none';
                         
                         const sortedMatches = data.sort((a, b) => {
-                            // Sortiere nach Spieltag-Nummer, falls vorhanden
-                            const aGroup = a.Group ? a.Group.GroupOrderID : Infinity;
-                            const bGroup = b.Group ? b.Group.GroupOrderID : Infinity;
+                            const aGroup = a.Group && a.Group.GroupOrderID ? a.Group.GroupOrderID : Infinity;
+                            const bGroup = b.Group && b.Group.GroupOrderID ? b.Group.GroupOrderID : Infinity;
                             if (aGroup !== bGroup) {
                                 return aGroup - bGroup;
                             }
-                            // Sortiere ansonsten nach Spieldatum
                             return new Date(a.MatchDateTime) - new Date(b.MatchDateTime);
                         });
 
@@ -232,6 +232,5 @@
             fetchMatches();
         });
     </script>
-
 </body>
 </html>
